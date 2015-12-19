@@ -17,6 +17,7 @@ package net.recommenders.rival.recommend.frameworks;
 
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.grouplens.lenskit.scored.ScoredId;
+import es.uam.eps.ir.ranksys.core.IdDouble;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -85,6 +86,16 @@ public final class RecommenderIO {
                     }
                     if (model != null) {
                         model.addPreference(user, recItem.getId(), recItem.getScore());
+                    }
+                }
+                if (ri instanceof IdDouble) {
+                    @SuppressWarnings("unchecked")
+                    IdDouble<Long> recItem = (IdDouble<Long>) ri;
+                    if (out != null) {
+                        out.write(user + "\t" + recItem.id + "\t" + recItem.v + "\n");
+                    }
+                    if (model != null) {
+                        model.addPreference(user, recItem.id, recItem.v);
                     }
                 }
             }

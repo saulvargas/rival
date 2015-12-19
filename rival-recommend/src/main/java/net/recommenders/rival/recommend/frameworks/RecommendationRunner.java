@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import net.recommenders.rival.recommend.frameworks.lenskit.LenskitRecommenderRunner;
 import net.recommenders.rival.recommend.frameworks.mahout.MahoutRecommenderRunner;
+import net.recommenders.rival.recommend.frameworks.ranksys.RankSysRecommenderRunner;
 
 import java.util.Properties;
 
@@ -58,6 +59,14 @@ public final class RecommendationRunner {
      */
     public static final String ITERATIONS = "iterations";
     /**
+     * The property key for the user set.
+     */
+    public static final String USER_SET = "users";
+    /**
+     * The property key for the item set.
+     */
+    public static final String ITEM_SET = "items";
+    /**
      * The property key for the training set.
      */
     public static final String TRAINING_SET = "training";
@@ -81,6 +90,10 @@ public final class RecommendationRunner {
      * The property key for LensKit.
      */
     public static final String LENSKIT = "lenskit";
+    /**
+     * The property key for RankSys.
+     */
+    public static final String RANKSYS = "ranksys";
     /**
      * The canonical path.
      */
@@ -175,6 +188,8 @@ public final class RecommendationRunner {
             rr = new MahoutRecommenderRunner(properties);
         } else if (properties.getProperty(FRAMEWORK).equals(LENSKIT)) {
             rr = new LenskitRecommenderRunner(properties);
+        } else if (properties.getProperty(FRAMEWORK).equals(RANKSYS)) {
+            rr = new RankSysRecommenderRunner(properties);
         }
         return rr;
     }
